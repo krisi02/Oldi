@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="DailyPlanner.Views.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <StackLayout Spacing="20" Padding="20" VerticalOptions="Center">
+            <Image
+                Source="DailyPlannerLogoNew.png"
+                HorizontalOptions="CenterAndExpand"
+                Margin="0,20" />
+
+            <Entry
+                x:Name="username"
+                Placeholder="Nome utente"
+                Text="{Binding Username}"/>
+            <Entry
+                x:Name="password"
+                Placeholder="Password"
+                Text="{Binding Password}"
+                IsPassword="true"/>
+
+            <Grid BackgroundColor="#0067B3">
+                <Button Text="Login" TextColor="White" BackgroundColor="#0067B3" Command="{Binding LoginCommand}"/>
+            </Grid>
+
+            <Label Margin="0,20" HorizontalOptions="Center" TextColor="Red" Text="{Binding ErrorMessage}" IsVisible="{Binding IsErrorVisible}"/>
+        </StackLayout>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+				IsRunning="{Binding IsBusy}"
+				Color="#d21c26"
+				VerticalOptions="CenterAndExpand"
+				HorizontalOptions="CenterAndExpand" />
+        </Grid>
+
+    </Grid>
+</ContentPage>

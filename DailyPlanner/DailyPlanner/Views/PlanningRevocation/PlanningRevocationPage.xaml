@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:fontawsome="clr-namespace:FontAwesome"
+             Title="REVOCA PIANIFICAZIONE"
+             x:Class="DailyPlanner.Views.PlanningRevocation.PlanningRevocationPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Name="SALVA"  Command="{Binding SavePlanningRevocation}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+
+            <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Orientation="Vertical">
+                <!-- {{BindingTruckInternalNumber}-->
+                <Grid Margin="10,4,10,4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="6*" />
+                    </Grid.ColumnDefinitions>
+                    <!--TRUCK NUMBER AND TYPE-->
+                    <StackLayout Margin="0"
+                         Grid.Column="0" 
+                         Grid.Row="0"
+                         Spacing="2" 
+                         HorizontalOptions="Fill" 
+                         BackgroundColor="{Binding TruckTypeColor}">
+                        <!-- {{BindingTruckInternalNumber}-->
+                        <Label Text="{Binding TruckInternalNumber}" 
+                       FontAttributes="Bold"                       
+                       TextColor="White" 
+                FontSize="18"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Fill" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" />
+                        <Label Text="{Binding TruckTypeDescription}" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                FontSize="18"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Start" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <Label 
+                Margin="0,0,0,0" 
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="18"
+                Text="{Binding Description}" 
+                TextColor="#5c5d5e"
+                FontAttributes="Bold"
+                HorizontalOptions="Start" 
+                VerticalOptions="Center" 
+                HorizontalTextAlignment="Center" 
+                VerticalTextAlignment="Center" />
+
+
+                </Grid>
+                <BoxView 
+            HeightRequest="1"
+            Color="LightGray"
+            Margin ="0"/>
+                <StackLayout Margin="8,0,8,0" Orientation="Horizontal" VerticalOptions="Center">
+                    <!-- {Binding Icon}-->
+                    <Label Grid.Column="0" 
+                   Text="{x:Static fontawsome:FontAwesomeIcons.Calendar}" 
+                   FontFamily="FA-Solid"
+                   FontSize="18"
+                   Padding="0"
+                   Margin="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+                    <!-- {{Binding SelectedDate}-->
+                    <Label Text="{Binding SelectedDateString}" 
+								           FontAttributes="None"
+								           TextColor="#5c5d5e"
+								           FontSize="16"
+                                           Margin="8,0,8,0"
+                                           Padding="0"
+                                           VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Margin="8,0,8,0" Orientation="Horizontal" VerticalOptions="Center">
+                    <!-- {Binding Icon}-->
+                    <Label Grid.Column="0" 
+                   Text="{x:Static fontawsome:FontAwesomeIcons.Clock}" 
+                   FontFamily="FA-Solid"
+                   FontSize="18"
+                   Padding="0"
+                   Margin="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+                    <!-- {{Binding SelectedDate}-->
+                    <Label Text="{Binding WorkingHoursDescription}" 
+								           FontAttributes="None"
+								           TextColor="#5c5d5e"
+								           FontSize="16"
+                                           Margin="8,0,8,0"
+                                           Padding="0"
+                                           VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Margin="8,0,8,0" Orientation="Horizontal" VerticalOptions="Center">
+                    <!-- {Binding Icon}-->
+                    <Label Text="{x:Static fontawsome:FontAwesomeIcons.Circle}" 
+                           FontFamily="FA-Solid"
+                           TextColor="{Binding PlanningStatusColor}"
+                           FontSize="18"
+                           Padding="0"
+                           Margin="0"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="{Binding PlanningStatusDescription}" 
+								           FontAttributes="None"
+								           TextColor="#5c5d5e"
+								           FontSize="16"
+                                           Margin="8,0,8,0"
+                                           Padding="0"
+                                           VerticalOptions="Center"/>
+                </StackLayout>
+
+                <Picker Margin="8,8,8,0"
+                        x:Name="causalsPicker"               
+                        Title="Seleziona una causale" 
+                        ItemsSource="{Binding RevocationCausalsList}"
+                        SelectedItem="{Binding SelectedCausal}"
+                        ItemDisplayBinding="{Binding Description}">
+
+                </Picker>
+
+            </StackLayout>
+            <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+                <ActivityIndicator
+				    IsRunning="{Binding IsBusy}"
+				    Color="#d21c26"
+				    VerticalOptions="CenterAndExpand"
+				    HorizontalOptions="CenterAndExpand" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

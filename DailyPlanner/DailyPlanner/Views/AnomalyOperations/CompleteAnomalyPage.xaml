@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:fontawsome="clr-namespace:FontAwesome"
+             Title="COMPLETA ANOMALIA"
+             x:Class="DailyPlanner.Views.AnomalyOperations.CompleteAnomalyPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Name="SALVA"  Command="{Binding CompleteAnomaly}" />
+    </ContentPage.ToolbarItems>
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Orientation="Vertical">
+            <Grid Margin="10,4,10,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="6*" />
+                </Grid.ColumnDefinitions>
+                <!--TRUCK NUMBER AND TYPE-->
+                <StackLayout Margin="0"
+                         Grid.Column="0" 
+                         Grid.Row="0"
+                         Spacing="2" 
+                         HorizontalOptions="Fill" 
+                         BackgroundColor="{Binding TruckTypeColor}">
+                    <!-- {{BindingTruckInternalNumber}-->
+                    <Label Text="{Binding TruckInternalNumber}" 
+                       FontAttributes="Bold"                       
+                       TextColor="White" 
+                FontSize="18"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Fill" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" />
+                    <Label Text="{Binding TruckTypeDescription}" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                FontSize="18"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Start" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" />
+                </StackLayout>
+                <Label 
+                Margin="0,0,0,0" 
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="18"
+                Text="{Binding Description}" 
+                TextColor="#5c5d5e"
+                FontAttributes="Bold"
+                HorizontalOptions="Start" 
+                VerticalOptions="Center" 
+                HorizontalTextAlignment="Center" 
+                VerticalTextAlignment="Center" />
+            </Grid>
+            <BoxView 
+            HeightRequest="1"
+            Color="LightGray"
+            Margin ="0"/>
+            <StackLayout Margin="8,0,8,0" Orientation="Horizontal" VerticalOptions="Center">
+                <!-- {Binding Icon}-->
+                <Label Grid.Column="0" 
+                   Text="{x:Static fontawsome:FontAwesomeIcons.Calendar}" 
+                   FontFamily="FA-Solid"
+                   FontSize="18"
+                   Padding="0"
+                   Margin="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+                <!-- {{Binding SelectedDate}-->
+                <Label Text="{Binding SelectedDateString}" 
+								           FontAttributes="None"
+								           TextColor="#5c5d5e"
+								           FontSize="16"
+                                           Margin="8,0,8,0"
+                                           Padding="0"
+                                           VerticalOptions="Center"/>
+            </StackLayout>
+
+            <Label Margin="8,16,0,0" Text="ORARIO DI PARTENZA" VerticalOptions="Center"/>
+            <TimePicker Margin="8,0,8,0" x:Name="startingTimePicker" Time="{Binding StartingTime, Mode=TwoWay}"/>
+            <StackLayout Orientation="Horizontal" Margin="8,16,8,0">
+                <CheckBox IsChecked="{Binding IsRental}" >
+                    <CheckBox.Behaviors>
+                        <prism:EventToCommandBehavior
+                                        Command="{Binding OnIsRentalChange}"
+                                        CommandParameter="{Binding .}"
+                                        EventName="CheckedChanged" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Text="NOLEGGIO" VerticalOptions="Center"/>
+            </StackLayout>
+        </StackLayout>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+				    IsRunning="{Binding IsBusy}"
+				    Color="#d21c26"
+				    VerticalOptions="CenterAndExpand"
+				    HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="http://prismlibrary.com" xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  NavigationPage.HasNavigationBar="True"
+                  xmlns:fontawsome="clr-namespace:FontAwesome"
+                  x:Class="DailyPlanner.Views.MainPage">
+
+<MasterDetailPage.Master>
+    <ContentPage Title="Menu"
+            Padding="0,0,0,0"
+            IconImageSource="{OnPlatform iOS='hamburger.png'}">
+            <Grid VerticalOptions="Fill" 
+                  HorizontalOptions="Fill">
+                <StackLayout Orientation="Vertical">
+
+                <StackLayout BackgroundColor="#0067B3" Padding="0,20,0,0">
+                    <Label Text="{x:Static fontawsome:FontAwesomeIcons.UserCircle}" FontFamily="FA-Solid" TextColor="White" FontSize="100" Margin="20,20,0,10"/>
+                    <Label Text="{Binding UserFullName}" Padding="8,0,0,0" FontAttributes="Bold" TextColor="White" FontSize="24"/>
+                    <Label Text="{Binding PlantName}" Padding="8,0,0,10" TextColor="White" FontSize="16" FontAttributes="Italic"/>
+                </StackLayout>
+
+                <ListView ItemsSource="{Binding SideBarMenu}"
+                    HasUnevenRows="True"
+                          SeparatorVisibility="Default">
+                    <ListView.Behaviors>
+                        <prism:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding SelectedMenuItem}"
+                                          EventArgsParameterPath ="Item" />
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                                <ViewCell>
+                                    <Grid Margin="0,15,0,15">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="7*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" 
+                                               Text="{Binding Icon}" 
+                                               FontFamily="FA-Solid"
+								               TextColor="#575757"
+								               FontSize="Title"
+                                               Margin="0"
+                                               Padding="8,0,0,0"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"/>
+                                        <Label 
+                                            Grid.Column="1"
+                                            Text="{Binding Title}" 
+								            FontAttributes="None"
+                                            TextColor="#575757"
+								            FontSize="Body"
+                                            Margin="8,0,0,0"
+                                            Padding="0"
+                                            VerticalOptions="Center"/>
+                                    </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                    <Grid  VerticalOptions="End"  Margin="0,15,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="7*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" 
+                                               Text="{x:Static fontawsome:FontAwesomeIcons.SignOutAlt}" 
+                                               FontFamily="FA-Solid"
+								               TextColor="#575757"
+								               FontSize="Title"
+                                               Padding="0"
+                                               Margin="8,0,0,0"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"/>
+
+                        <Button Text="Esci" Grid.Column="1" Margin="0" Padding="0" HorizontalOptions="Start" BackgroundColor="Transparent" Command="{Binding LogoutCommand}" FontSize="Body" VerticalOptions="End" TextColor="#575757"/>
+                    </Grid>
+                </StackLayout>
+        
+                <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+                    <ActivityIndicator
+				    IsRunning="{Binding IsBusy}"
+				    Color="#d21c26"
+				    VerticalOptions="CenterAndExpand"
+				    HorizontalOptions="CenterAndExpand" />
+                </Grid>
+
+            </Grid>
+        </ContentPage>
+  </MasterDetailPage.Master>
+    
+</MasterDetailPage>

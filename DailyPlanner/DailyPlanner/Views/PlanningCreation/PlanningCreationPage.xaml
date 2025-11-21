@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:fontawsome="clr-namespace:FontAwesome"
+             Title="NUOVA PIANIFICAZIONE"
+             x:Class="DailyPlanner.Views.PlanningCreation.PlanningCreationPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Name="SALVA"  Command="{Binding SaveNewPlanning}" />
+    </ContentPage.ToolbarItems>
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Orientation="Vertical">
+            <!-- {{BindingTruckInternalNumber}-->
+            <Grid Margin="10,4,10,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="6*" />
+                </Grid.ColumnDefinitions>
+                <!--TRUCK NUMBER AND TYPE-->
+                <StackLayout Margin="0"
+                             Grid.Column="0" 
+                             Grid.Row="0"
+                             Spacing="2" 
+                             HorizontalOptions="Fill" 
+                             BackgroundColor="{Binding TruckTypeColor}">
+                    <!-- {{BindingTruckInternalNumber}-->
+                    <Label Text="{Binding TruckInternalNumber}" 
+                           FontAttributes="Bold"                       
+                           TextColor="White" 
+                    FontSize="18"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Fill" 
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center" />
+                    <Label Text="{Binding TruckTypeDescription}" 
+                           FontAttributes="Bold"
+                           TextColor="White"
+                    FontSize="18"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Start" 
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center" />
+                </StackLayout>
+
+                <Label 
+                    Margin="0,0,0,0" 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontSize="18"
+                    Text="{Binding Description}" 
+                    TextColor="#5c5d5e"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center" 
+                    HorizontalTextAlignment="Center" 
+                    VerticalTextAlignment="Center" />
+
+
+            </Grid>
+            <BoxView 
+                HeightRequest="1"
+                Color="LightGray"
+                Margin ="0"/>
+            <StackLayout Margin="8,0,8,0" Orientation="Horizontal" VerticalOptions="Center">
+                <!-- {Binding Icon}-->
+                <Label Grid.Column="0" 
+                       Text="{x:Static fontawsome:FontAwesomeIcons.Calendar}" 
+                       FontFamily="FA-Solid"
+                       FontSize="18"
+                       Padding="0"
+                       Margin="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+
+                <!-- {{Binding SelectedDate}-->
+                <Label Text="{Binding SelectedDateString}" 
+								               FontAttributes="None"
+								               TextColor="#5c5d5e"
+								               FontSize="16"
+                                               Margin="8,0,8,0"
+                                               Padding="0"
+                                               VerticalOptions="Center"/>
+            </StackLayout>
+
+            <Label Margin="8,32,8,-4" Text="ORARIO DI PARTENZA" VerticalOptions="Center"/>
+            <TimePicker Margin="8,0,8,0" x:Name="startingTimePicker" Time="{Binding StartingTime, Mode=TwoWay}"/>
+            <Label Margin="8,32,8,-4" Text="NOTA PER L'AUTISTA" VerticalOptions="Center"/>
+            <Editor Margin="8,8,8,0"  Text="{Binding Note}" Placeholder="Inserire Nota" HeightRequest="100" />
+            <StackLayout Orientation="Vertical" IsVisible="{Binding IsImpiantista}">
+                <StackLayout Orientation="Horizontal" Margin="8,16,8,0">
+                    <CheckBox IsChecked="{Binding ChangePlant}" >
+                        <CheckBox.Behaviors>
+                            <prism:EventToCommandBehavior
+                                            Command="{Binding OnChangePlantChange}"
+                                            CommandParameter="{Binding .}"
+                                            EventName="CheckedChanged" />
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                    <Label Text="PASSA GESTIONE GIORNALIERA AD ALTRO IMPIANTO" VerticalOptions="Center"/>
+                </StackLayout>
+                <Picker Margin="8,4,8,0"
+                    x:Name="plantPicker"               
+                    Title="Seleziona impianto di partenza" 
+                    IsVisible="{Binding ChangePlant}"
+                    ItemsSource="{Binding PlantList}"
+                    SelectedItem="{Binding SelectedPlant}"
+                    ItemDisplayBinding="{Binding PlantDescription}">
+
+                </Picker>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" IsVisible="{Binding IsAdmin}">
+                <Label Margin="8,32,8,-4" Text="IMPIANTO DI PARTENZA" VerticalOptions="Center"/>
+                <Picker Margin="8,4,8,0"
+                    x:Name="adminPlantPicker"               
+                    Title="Seleziona impianto di partenza" 
+                    ItemsSource="{Binding PlantList}"
+                    SelectedItem="{Binding AdminSelectedPlant, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding PlantDescription}">
+
+                </Picker>
+                <Label Margin="8,32,8,-4" Text="SEGNALAZIONE NOLEGGIO" VerticalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" Margin="8,16,8,0">
+                    <CheckBox IsChecked="{Binding AdminIsRental}" >
+                        <CheckBox.Behaviors>
+                            <prism:EventToCommandBehavior
+                                            Command="{Binding OnAdminIsRentalChange}"
+                                            CommandParameter="{Binding .}"
+                                            EventName="CheckedChanged" />
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                    <Label Text="NOLEGGIO" VerticalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+
+        </StackLayout>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+				    IsRunning="{Binding IsBusy}"
+				    Color="#d21c26"
+				    VerticalOptions="CenterAndExpand"
+				    HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </Grid>
+</ContentPage>

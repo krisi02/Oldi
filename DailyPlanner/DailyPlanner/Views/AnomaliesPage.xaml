@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:fontawsome="clr-namespace:FontAwesome"
+             Title="ANOMALIE"
+             x:Class="DailyPlanner.Views.AnomaliesPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Name="Aggiorna" Command="{Binding RefreshData}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="{x:Static fontawsome:FontAwesomeIcons.SyncAlt}" FontFamily="FA-Solid" Size="Small"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <StackLayout Orientation="Vertical">
+            <ListView
+				x:Name="listView"
+				SeparatorVisibility="None"
+                SelectionMode="None"
+				HasUnevenRows="true"
+				ItemsSource="{Binding AnomalyList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame x:Name="Item" Padding="0" OutlineColor="#CCCCCC" Style="{StaticResource FrameStyle}">
+                            <Grid Margin="0,0,0,0" Padding="0" ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <BoxView
+                                        HorizontalOptions="Fill"
+                                                 VerticalOptions="Fill"
+                                                 Grid.ColumnSpan="5"
+                                                 Grid.Row="0"
+                                                 Grid.Column="0" 
+                                        Margin="0,0,0,-1"
+                                        
+                                        BackgroundColor="#CCCCCC"
+                                        />
+                                <!--DRIVER NAME Margin="8,1,0,0" -->
+                                <StackLayout Padding="8,0,0,0"
+                                                 Margin="1,1,0,0"
+                                                 HorizontalOptions="Fill"
+                                                 VerticalOptions="Fill"
+                                                 Grid.ColumnSpan="4"
+                                                 Grid.Row="0"
+                                                 Grid.Column="0" 
+                                                 
+                                                 BackgroundColor="White"
+                                                 >
+                                    <Label
+                                            Text="{Binding DriverName}" 
+                                            TextColor="#5c5d5e"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Margin="0"
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="CenterAndExpand"/>
+                                </StackLayout>
+
+                                <!--TRUCK NUMBER AND TYPE-->
+                                <StackLayout Margin="0,1,1,0" 
+                                                 Grid.Column="4" 
+                                                 Grid.Row="0"
+                                                 Padding="0" 
+                                                 Spacing="2" 
+                                                 HorizontalOptions="Fill" 
+                                                 BackgroundColor="{Binding TruckTypeColor}">
+                                    <!-- {{BindingTruckInternalNumber}-->
+                                    <Label Text="{Binding TruckInternalNumber}" 
+                                               FontAttributes="Bold"
+                                               TextColor="White" 
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Fill" 
+                                               FontSize="18"
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" />
+
+                                    <!-- {{Binding TruckTypeDescription}-->
+                                    <Label Text="{Binding TruckTypeDescription}" 
+                                               FontAttributes="Bold"
+                                               TextColor="White"
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Start" 
+                                               FontSize="18"
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" />
+                                </StackLayout>
+
+
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="10,6,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="8*" />
+                                    </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{x:Static fontawsome:FontAwesomeIcons.ExclamationTriangle}" 
+                                            FontFamily="FA-Solid"
+								            TextColor="Orange"
+								            FontSize="18"
+                                            Padding="0"
+                                            Margin="0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"/>
+                                    <!-- {{Binding Ricevuto}-->
+                                    <Button Grid.Column="1" 
+                                            Text="Visualizza dettaglio anomalia" 
+                                            BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}"  
+                                            CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                            Command="{Binding ViewDetails}"
+								            FontAttributes="Bold,Italic"
+                                            BackgroundColor="Transparent"
+								            TextColor="Orange"
+								            FontSize="14"
+                                            Margin="0,0,0,0"
+                                            Padding="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"/>
+                                </Grid>
+
+                                <!--COMPLETE BUTTON-->
+                                <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"  Margin="10,6,10,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackLayout Grid.Row="0" 
+                                                     Grid.Column="2" 
+                                                     Margin="0"
+                                                     HorizontalOptions="Fill" 
+                                                     VerticalOptions="Fill"
+                                                     >
+                                        <Button Text="RISOLVI"  
+                                                    BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}"  
+                                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                                    Command="{Binding CompleteAnomaly}"
+                                                    Margin="0" 
+                                                    TextColor="White" 
+                                                    HorizontalOptions="Fill" 
+                                                    VerticalOptions="Center"
+                                                    BackgroundColor="LimeGreen"
+                                                    />
+                                    </StackLayout>
+                                </Grid>
+
+                            </Grid>
+                        </Frame>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+				    IsRunning="{Binding IsBusy}"
+				    Color="#d21c26"
+				    VerticalOptions="CenterAndExpand"
+				    HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </Grid>
+</ContentPage>

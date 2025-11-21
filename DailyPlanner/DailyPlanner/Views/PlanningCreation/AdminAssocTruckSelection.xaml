@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="SELEZIONE MEZZO"
+             x:Class="DailyPlanner.Views.PlanningCreation.AdminAssocTruckSelection">
+
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <ListView
+			x:Name="listView"
+			SeparatorVisibility="Default"
+			HasUnevenRows="true"
+			ItemsSource="{Binding PlanningTrucks}">
+            <ListView.Behaviors>
+                <prism:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding SelectedTruck}"
+                                          EventArgsParameterPath ="Item" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="10,4,0,4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="6*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--TRUCK NUMBER AND TYPE-->
+                            <StackLayout Margin="0"
+                                                 Grid.Column="0" 
+                                                 Grid.Row="0"
+                                                 Spacing="2" 
+                                                 HorizontalOptions="Fill" 
+                                                 BackgroundColor="{Binding TruckTypeColor}">
+                                <!-- {{BindingTruckInternalNumber}-->
+                                <Label Text="{Binding TruckInternalNumber}" 
+                                               FontAttributes="Bold"
+                                               TextColor="White" 
+                                               FontSize="18"
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Fill" 
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" />
+                                <Label Text="{Binding TruckTypeDescription}" 
+                                               FontAttributes="Bold"
+                                               TextColor="White"
+                                               FontSize="18"
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Start" 
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" />
+                            </StackLayout>
+                            <Label 
+                            Margin="0,0,0,0" 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            FontSize="18"
+                            Text="{Binding TruckDefaultPlant}" 
+                            TextColor="#5c5d5e"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Start" 
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Center" 
+                            VerticalTextAlignment="Center" />
+
+
+                        </Grid>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+				    IsRunning="{Binding IsBusy}"
+				    Color="#d21c26"
+				    VerticalOptions="CenterAndExpand"
+				    HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </Grid>
+</ContentPage>

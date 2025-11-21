@@ -1,0 +1,11 @@
+﻿using Prism.Events;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DailyPlanner.Models.Events
+{
+    public class NewPlanningReceived : PubSubEvent
+    {
+    }
+}

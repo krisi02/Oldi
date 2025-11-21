@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:fontawsome="clr-namespace:FontAwesome"
+             Title="SELEZIONE IMPIANTO"
+             x:Class="DailyPlanner.Views.AnomalyOperations.TransferAnomalyPage">
+    <ListView
+			x:Name="listView"
+			SeparatorVisibility="Default"
+			HasUnevenRows="true"
+			ItemsSource="{Binding PlantList}">
+        <ListView.Behaviors>
+            <prism:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding SelectedPlant}"
+                                          EventArgsParameterPath ="Item" />
+        </ListView.Behaviors>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Margin="10,4,4,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="8*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Padding="16"
+                                                 Grid.Column="0" 
+                                                 Grid.Row="0"
+                                                 Spacing="2" 
+                                                 HorizontalOptions="Fill" 
+                                                 BackgroundColor="#00A5F2">
+                            <!-- {{BindingTruckInternalNumber}-->
+                            <Label Grid.Column="0" Text="{x:Static fontawsome:FontAwesomeIcons.MapMarkerAlt}" 
+                                               FontFamily="FA-Solid"
+                                               TextColor="White"
+								               FontSize="36"
+                                               Padding="0"
+                                               Margin="0"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"/>
+                        </StackLayout>
+                       
+                        <Label Grid.Column="1" Text="{Binding PlantDescription}"
+                                               TextColor="#575757"
+								               FontSize="24"
+                                               Margin="0"
+                                               Padding="0"
+                                               VerticalOptions="Center"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

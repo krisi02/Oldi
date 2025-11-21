@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:fontawsome="clr-namespace:FontAwesome"
+      xmlns:prism="http://prismlibrary.com"
+      prism:DialogLayout.RelativeWidthRequest="0.85"
+      BackgroundColor="White"
+      x:Class="DailyPlanner.Views.WorkingHoursDialog"
+      Margin="0,0,0,0" Padding="0" ColumnSpacing="0">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <!--DRIVER TRUCK INFO-->
+    <Grid Grid.Row="0" Margin="0" Padding="0" RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <BoxView
+            HeightRequest="1"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="0,0,0,-1"
+            BackgroundColor="#CCCCCC"/>
+        <!--DRIVER NAME  CCCCCC-->
+        <StackLayout Grid.Row="0" Grid.Column="0"
+                 Padding="8,0,0,0"
+                 Margin="1,1,0,0"         
+                 BackgroundColor="White"
+                 >
+            <Label
+                Text="{Binding DriverName}" 
+                TextColor="#5c5d5e"
+                FontAttributes="Bold"
+                FontSize="18"
+                Margin="0"
+                HorizontalOptions="Fill"/>
+            <!--CONTRACT TYPE-->
+            <Label
+                Text="{Binding ContractType}" 
+                TextColor="#5c5d5e"
+                FontSize="14"
+                Margin="0"
+                HorizontalOptions="Fill"/>
+        </StackLayout>
+        <StackLayout Margin="0" 
+                                                 Grid.Column="1" 
+                                                 Grid.Row="0"
+                                                 Padding="0" 
+                                                 Spacing="2" 
+                                                 HorizontalOptions="Fill" 
+                                                 BackgroundColor="{Binding TruckTypeColor}">
+            <!-- {{BindingTruckInternalNumber}-->
+            <Label 
+                Text="{Binding TruckInternalNumber}" 
+                                               FontAttributes="Bold"
+                                               TextColor="White" 
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Fill" 
+                                               FontSize="18"
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" />
+
+            <!-- {{Binding TruckTypeDescription}-->
+            <Label 
+                Text="{Binding TruckTypeDescription}" 
+                                               FontAttributes="Bold"
+                                               TextColor="White"
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Start" 
+                                               FontSize="18"
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" />
+        </StackLayout>
+    </Grid>
+    <!--OFFICIAL WORKING HOURS GRID-->
+    <Grid Grid.Row="1" Grid.Column="0" Margin="10,8,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--TITLE-->
+        <Label Grid.Row="0" Grid.Column="0" 
+                Text="ORARIO UFFICIALE" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Bold"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"/>
+        <!--TOTAL-->
+        <StackLayout Grid.Row="1" Grid.Column="0"
+                     Padding="8,0,0,0"
+                     Margin="1,1,0,0"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"    
+                     Orientation="Horizontal"
+                     BackgroundColor="White"
+                     >
+            <Label 
+                Text="{x:Static fontawsome:FontAwesomeIcons.Clock}" 
+                FontFamily="FA-Solid"
+                TextColor="#575757"
+				FontSize="18"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Grid.Column="1"
+                Text="{Binding OfficialTotalHours}" 
+				FontAttributes="None"
+                TextColor="#575757"
+				FontSize="16"
+                Margin="0"
+                Padding="0"
+                VerticalOptions="Center"/>
+        </StackLayout>
+        <!--HOURS DESCRIPTION-->
+        <Label Grid.Row="2" Grid.Column="0" 
+                Text="{Binding OfficialHoursDescription}" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Italic"
+                Padding="27,0,0,0"
+                Margin="0"
+                VerticalOptions="Center"/>
+
+    </Grid>
+    <!--PLANNED GRID-->
+    <Grid Grid.Row="2" Grid.Column="0" Margin="10,8,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--TITLE-->
+        <Label Grid.Row="0" Grid.Column="0" 
+                Text="PIANIFICATO" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Bold"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"/>
+        <!--TOTAL-->
+        <StackLayout Grid.Row="1" Grid.Column="0"
+                     Padding="8,0,0,0"
+                     Margin="1,1,0,0"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"    
+                     Orientation="Horizontal"
+                     BackgroundColor="White"
+                     >
+            <Label 
+                Text="{x:Static fontawsome:FontAwesomeIcons.Clock}" 
+                FontFamily="FA-Solid"
+                TextColor="#575757"
+				FontSize="18"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Grid.Column="1"
+                Text="{Binding PlannedTotalHours}" 
+				FontAttributes="None"
+                TextColor="#575757"
+				FontSize="16"
+                Margin="0"
+                Padding="0"
+                VerticalOptions="Center"/>
+        </StackLayout>
+        <!--HOURS DESCRIPTION-->
+        <Label Grid.Row="2" Grid.Column="0" 
+                Text="{Binding PlannedHoursDescription}" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Italic"
+                Padding="27,0,0,0"
+                Margin="0"
+                VerticalOptions="Center"/>
+
+    </Grid>
+    <!--DRIVER DATA GRID-->
+    <Grid Grid.Row="3" Grid.Column="0" Margin="10,8,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--TITLE-->
+        <Label Grid.Row="0" Grid.Column="0" 
+                Text="SEGNALAZIONE AUTISTA" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Bold"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"/>
+        <!--TOTAL-->
+        <StackLayout Grid.Row="1" Grid.Column="0"
+                     Padding="8,0,0,0"
+                     Margin="1,1,0,0"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"    
+                     Orientation="Horizontal"
+                     BackgroundColor="White"
+                     >
+            <Label 
+                Text="{x:Static fontawsome:FontAwesomeIcons.Clock}" 
+                FontFamily="FA-Solid"
+                TextColor="#575757"
+				FontSize="18"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Grid.Column="1"
+                Text="{Binding DriverTotalHours}" 
+				FontAttributes="None"
+                TextColor="#575757"
+				FontSize="16"
+                Margin="0"
+                Padding="0"
+                VerticalOptions="Center"/>
+        </StackLayout>
+        <!--HOURS DESCRIPTION-->
+        <Label Grid.Row="2" Grid.Column="0" 
+                Text="{Binding DriverHoursDescription}" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Italic"
+                Padding="27,0,0,0"
+                Margin="0"
+                VerticalOptions="Center"/>
+
+    </Grid>
+    <!--TRUCKMOVE DATA GRID-->
+    <Grid Grid.Row="4" Grid.Column="0" Margin="10,8,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--TITLE-->
+        <Label Grid.Row="0" Grid.Column="0" 
+                Text="RILEVAMENTO AUTOMATICO TRUCKMOVE" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Bold"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"/>
+        <!--TOTAL-->
+        <StackLayout Grid.Row="1" Grid.Column="0"
+                     Padding="8,0,0,0"
+                     Margin="1,1,0,0"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"    
+                     Orientation="Horizontal"
+                     BackgroundColor="White"
+                     >
+            <Label 
+                Text="{x:Static fontawsome:FontAwesomeIcons.Clock}" 
+                FontFamily="FA-Solid"
+                TextColor="#575757"
+				FontSize="18"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Grid.Column="1"
+                Text="{Binding TruckmoveTotalHours}" 
+				FontAttributes="None"
+                TextColor="#575757"
+				FontSize="16"
+                Margin="0"
+                Padding="0"
+                VerticalOptions="Center"/>
+        </StackLayout>
+        <!--HOURS DESCRIPTION-->
+        <Label Grid.Row="2" Grid.Column="0" 
+                Text="{Binding TruckmoveHoursDescription}" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Italic"
+                Padding="27,0,0,0"
+                Margin="0"
+                VerticalOptions="Center"/>
+    </Grid>
+    <!--PAUSES GRID-->
+    <Grid Grid.Row="5" Grid.Column="0" Margin="10,8,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--TITLE-->
+        <Label Grid.Row="0" Grid.Column="0" 
+                Text="PAUSE RILEVATE DA TRUCKMOVE" 
+                TextColor="#575757"
+			    FontSize="16"
+                FontAttributes="Bold"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"/>
+        <!--TOTAL-->
+        <StackLayout Grid.Row="1" Grid.Column="0"
+                     Padding="8,0,0,0"
+                     Margin="1,1,0,0"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"    
+                     Orientation="Horizontal"
+                     BackgroundColor="White"
+                     >
+            <Label 
+                Text="{x:Static fontawsome:FontAwesomeIcons.Coffee}" 
+                FontFamily="FA-Solid"
+                TextColor="#575757"
+				FontSize="18"
+                Padding="0"
+                Margin="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Grid.Column="1"
+                Text="{Binding PausesTotalHours}" 
+				FontAttributes="None"
+                TextColor="#575757"
+				FontSize="16"
+                Margin="0"
+                Padding="0"
+                VerticalOptions="Center"/>
+        </StackLayout>
+
+    </Grid>
+    <StackLayout IsVisible="{Binding IsMessageVisible}" Grid.Row="6" Grid.Column="0" BackgroundColor="Red">
+        <Label  TextColor="White" Text="**ATTENZIONE Rilevata un incongurenza tra i dati rielvati dal truckmove e quelli inseriti dall'autista!"/>
+    </StackLayout>
+    <Button Command="{Binding CloseDialog}" Grid.Row="7" Text="CHIUDI" BackgroundColor="Transparent" TextColor="#00A5F2" HorizontalOptions="End"/>
+</Grid>
+ 

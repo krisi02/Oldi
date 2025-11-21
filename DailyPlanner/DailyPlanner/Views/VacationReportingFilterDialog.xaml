@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:fontawsome="clr-namespace:FontAwesome"
+      xmlns:prism="http://prismlibrary.com"
+      prism:DialogLayout.RelativeWidthRequest="0.85"
+      BackgroundColor="White"
+      
+      x:Class="DailyPlanner.Views.VacationReportingFilterDialog"
+      Margin="0,0,0,0" Padding="0" ColumnSpacing="0">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <StackLayout Margin="1" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" BackgroundColor="#00A5F2">
+        <Label Grid.Column="0" Text="{x:Static fontawsome:FontAwesomeIcons.Filter}" 
+                                                   FontFamily="FA-Solid"
+								                   FontSize="18"
+                                                   Padding="0"
+                                                   Margin="8,0,0,0"
+               TextColor="White"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Start"/>
+        <Label Padding="18,8,8,8"  FontSize="24" Text="FILTRO" TextColor="White" />
+    </StackLayout>
+    <StackLayout Margin="8,8,8,0" Padding="10" Grid.Row="1" Grid.Column="0">
+        <Label Text="DATA INIZIO" VerticalOptions="Center"/>
+        <DatePicker Date="{Binding StartingDate}" x:Name="startingDatePicker" />
+    </StackLayout>
+    <StackLayout Margin="8,8,8,0" Padding="10" Grid.Row="2" Grid.Column="0">
+        <Label Text="DATA FINE" VerticalOptions="Center"/>
+        <DatePicker Date="{Binding EndingDate}" x:Name="endingDatePicker" />
+    </StackLayout>
+
+    <StackLayout Grid.Row="3" HorizontalOptions="End">
+        <Button Command="{Binding SaveFilter}" Text="SALVA" BackgroundColor="Transparent" TextColor="#00A5F2" HorizontalOptions="End"/>
+    </StackLayout>
+</Grid>

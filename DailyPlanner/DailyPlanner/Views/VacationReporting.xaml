@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="SEGNALAZIONI"
+             xmlns:fontawsome="clr-namespace:FontAwesome"
+             x:Class="DailyPlanner.Views.VacationReporting">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Name="Aggiorna" Command="{Binding RefreshData}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="{x:Static fontawsome:FontAwesomeIcons.SyncAlt}" FontFamily="FA-Solid" Size="Small"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Order="Primary" Name="Aggiungi" Command="{Binding AddNewVacationCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="{x:Static fontawsome:FontAwesomeIcons.Plus}" FontFamily="FA-Solid" Size="Small"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <StackLayout Orientation="Vertical">
+            <Button Command="{Binding OpenFilterDialog}" CornerRadius="0" Text="{Binding FilterString}" HeightRequest="30" TextColor="#575757" BackgroundColor="#CCCCCC" Padding="0"/>
+
+            <ListView
+				    x:Name="listView"
+				    SeparatorVisibility="None"
+                        SelectionMode="None"
+				    HasUnevenRows="true"
+				    ItemsSource="{Binding Vacations}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame x:Name="Item" Padding="0" OutlineColor="#CCCCCC" Style="{StaticResource FrameStyle}">
+                                <Grid Margin="0,0,0,0" Padding="0" ColumnSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <BoxView
+                                            HorizontalOptions="Fill"
+                                                     VerticalOptions="Fill"
+                                                     Grid.ColumnSpan="5"
+                                                     Grid.Row="0"
+                                                     Grid.Column="0" 
+                                            Margin="0,0,0,-1"
+                                        
+                                            BackgroundColor="#CCCCCC"
+                                            />
+                                    <!--DRIVER NAME Margin="8,1,0,0" -->
+                                    <StackLayout Padding="8,0,0,0"
+                                                     Margin="1,1,0,0"
+                                                     HorizontalOptions="Fill"
+                                                     VerticalOptions="Fill"
+                                                     Grid.ColumnSpan="4"
+                                                     Grid.Row="0"
+                                                     Grid.Column="0" 
+                                                 
+                                                     BackgroundColor="White"
+                                                     >
+                                        <Label
+                                                Text="{Binding DriverName}" 
+                                                TextColor="#5c5d5e"
+                                                FontAttributes="Bold"
+                                                FontSize="18"
+                                                Margin="0"
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="CenterAndExpand"/>
+                                    </StackLayout>
+
+                                    <!--TRUCK NUMBER AND TYPE-->
+                                    <StackLayout Margin="0,1,1,0" 
+                                                     Grid.Column="4" 
+                                                     Grid.Row="0"
+                                                     Padding="0" 
+                                                     Spacing="2" 
+                                                     HorizontalOptions="Fill" 
+                                                     BackgroundColor="{Binding TruckTypeColor}">
+                                        <!-- {{BindingTruckInternalNumber}-->
+                                        <Label Text="{Binding TruckInternalNumber}" 
+                                                   FontAttributes="Bold"
+                                                   TextColor="White" 
+                                                   HorizontalOptions="Center" 
+                                                   VerticalOptions="Fill" 
+                                                   FontSize="18"
+                                                   HorizontalTextAlignment="Center" 
+                                                   VerticalTextAlignment="Center" />
+
+                                        <!-- {{Binding TruckTypeDescription}-->
+                                        <Label Text="{Binding TruckTypeDescription}" 
+                                                   FontAttributes="Bold"
+                                                   TextColor="White"
+                                                   HorizontalOptions="Center" 
+                                                   VerticalOptions="Start" 
+                                                   FontSize="18"
+                                                   HorizontalTextAlignment="Center" 
+                                                   VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <!--PLANNING STATUS GRID-->
+                                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"  Margin="10,6,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="8*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" 
+                                                   Text="{x:Static fontawsome:FontAwesomeIcons.Bullhorn}" 
+                                                   FontFamily="FA-Solid"
+								                   TextColor="{Binding PlanningStatusColor}"
+								                   FontSize="18"
+                                                   Padding="0"
+                                                   Margin="0"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
+                                        <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding CausalDescription}" 
+								                FontAttributes="None"
+                                                TextColor="#575757"
+								                FontSize="16"
+                                                Margin="0"
+                                                Padding="0"
+                                                VerticalOptions="Center"/>
+                                    </Grid>
+
+                                    <!--PLANNING TIME GRID-->
+                                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"  Margin="10,6,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="8*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{x:Static fontawsome:FontAwesomeIcons.CalendarTimes}" 
+                                                   FontFamily="FA-Solid"
+                                                   TextColor="#575757"
+								                   FontSize="18"
+                                                   Padding="0"
+                                                   Margin="0"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
+                                        <!-- {Binding WorkingHoursDescription} FontAttributes="Bold" -->
+                                        <Label Grid.Column="1" Text="{Binding TimeInterval}"
+                                                   TextColor="#575757"
+								                   FontSize="16"
+                                                   Margin="0"
+                                                   Padding="0"
+                                                   VerticalOptions="Center"/>
+                                    </Grid>
+                                    
+                                    <!--MODIFY AND DELETE BUTTONS-->
+                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5"  Margin="10,6,10,8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Row="0" 
+                                                     Grid.Column="0" 
+                                                     Margin="0"
+                                                     HorizontalOptions="Fill" 
+                                                     VerticalOptions="Fill"
+                                                     IsVisible="{Binding IsRevocable}"
+                                                     >
+                                            <Button Text="REVOCA"
+                                                    BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}"  
+                                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                                    Command="{Binding RevokeVacation}"
+                                                    Margin="0" 
+                                                    TextColor="White" 
+                                                    HorizontalOptions="Fill" 
+                                                    VerticalOptions="Center"
+                                                    BackgroundColor="Red"
+                                                    />
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="0" 
+                                                     Grid.Column="2" 
+                                                     Margin="0"
+                                                     HorizontalOptions="Fill" 
+                                                     VerticalOptions="Fill"
+                                                     IsVisible="{Binding IsUpdatable}"
+                                                     >
+                                            <Button Text="MODIFICA"  
+                                                    BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}"  
+                                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                                    Command="{Binding UpdateVacation}"
+                                                    Margin="0" 
+                                                    TextColor="White" 
+                                                    HorizontalOptions="Fill" 
+                                                    VerticalOptions="Center"
+                                                    BackgroundColor="Orange"
+                                                    />
+                                        </StackLayout>
+                                    </Grid>
+
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="#40000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+				        IsRunning="{Binding IsBusy}"
+				        Color="#d21c26"
+				        VerticalOptions="CenterAndExpand"
+				        HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </Grid>
+</ContentPage>
