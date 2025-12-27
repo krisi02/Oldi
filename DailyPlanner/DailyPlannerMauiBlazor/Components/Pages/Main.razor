@@ -1,0 +1,169 @@
+@page "/main"
+@using DailyPlanner.Models.Enum
+@using DailyPlanner.Repository
+@using Microsoft.AspNetCore.Components
+@inject IRepository Repository
+@inject NavigationManager NavigationManager
+
+<div class="main-container">
+    <div class="header">
+        <h1>Daily Planner</h1>
+        <div class="user-info">
+            <span>@UserFullName</span>
+            <span class="role-badge">@RoleName</span>
+            <button class="btn-logout" @onclick="LogoutAsync">Logout</button>
+        </div>
+    </div>
+
+    <div class="content">
+        @if (UserRole == RolesEnum.AUTISTA)
+        {
+            <div class="welcome-card">
+                <h2>Benvenuto Autista</h2>
+                <p>Questa è la pagina principale per gli autisti.</p>
+                <p>Le notifiche di pianificazione verranno visualizzate qui.</p>
+            </div>
+        }
+        else if (UserRole == RolesEnum.NEL)
+        {
+            <div class="welcome-card">
+                <h2>Benvenuto NEL</h2>
+                <p>Questa è la pagina principale per amministratori NEL.</p>
+                <p>Gestione pianificazioni disponibile qui.</p>
+            </div>
+        }
+        else
+        {
+            <div class="welcome-card">
+                <h2>Benvenuto</h2>
+                <p>Questa è la pagina principale dell'applicazione.</p>
+                <p>Le funzionalità specifiche verranno implementate nelle prossime milestone.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    public string? Role { get; set; }
+
+    private string UserFullName { get; set; } = string.Empty;
+    private RolesEnum UserRole { get; set; } = RolesEnum.IMPIANTISTA;
+    private string RoleName => UserRole switch
+    {
+        RolesEnum.AUTISTA => "Autista",
+        RolesEnum.NEL => "NEL",
+        RolesEnum.IMPIANTISTA => "Impiantista",
+        _ => "Utente"
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Check if user is logged in
+        var isLogged = await Repository.IsUserLoggedAsync();
+        if (!isLogged)
+        {
+            NavigationManager.NavigateTo("/login");
+            return;
+        }
+
+        // Get user info
+        UserFullName = DailyPlanner.Settings.Settings.Default.LoggedUserFullName;
+        UserRole = DailyPlanner.Settings.Settings.Default.LoggedUserRole;
+    }
+
+    private async Task LogoutAsync()
+    {
+        try
+        {
+            var userId = DailyPlanner.Settings.Settings.Default.LoggedUserId;
+            await Repository.LogoutAsync(userId);
+        }
+        catch (Exception)
+        {
+            // Force logout even if API call fails
+            await Repository.ForceUserLogout();
+        }
+        finally
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+    }
+}
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #f5f5f5;
+    }
+
+    .header {
+        background-color: #0067B3;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .role-badge {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .btn-logout {
+        background-color: #d21c26;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .btn-logout:hover {
+        background-color: #b01820;
+    }
+
+    .content {
+        flex: 1;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .welcome-card {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-card h2 {
+        color: #0067B3;
+        margin-top: 0;
+    }
+
+    .welcome-card p {
+        color: #666;
+        line-height: 1.6;
+    }
+</style>
