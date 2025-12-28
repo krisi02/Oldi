@@ -1,6 +1,6 @@
 @page "/login"
-@using DailyPlanner.Repository
-@using DailyPlanner.Models.Enum
+@using DailyPlannerMauiBlazor.Repository
+@using DailyPlannerMauiBlazor.Models.Enum
 @inject IRepository Repository
 @inject NavigationManager NavigationManager
 
@@ -129,7 +129,7 @@
     private void NavigateToMainPage()
     {
         // Navigate based on user role (similar to LoginPageViewModel.NavigateOnView)
-        var userRole = DailyPlanner.Settings.Settings.Default.LoggedUserRole;
+        var userRole = DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserRole;
         
         if (userRole == RolesEnum.AUTISTA)
         {

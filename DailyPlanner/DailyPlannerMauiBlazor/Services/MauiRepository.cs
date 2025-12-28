@@ -1,15 +1,15 @@
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using DailyPlanner.Models;
-using DailyPlanner.Models.Enum;
-using DailyPlanner.Models.NetworkModels;
-using DailyPlanner.Remote;
+using DailyPlannerMauiBlazor.Models;
+using DailyPlannerMauiBlazor.Models.Enum;
+using DailyPlannerMauiBlazor.Models.NetworkModels;
+using DailyPlannerMauiBlazor.Remote;
 using DailyPlannerMauiBlazor.Services;
 
 namespace DailyPlannerMauiBlazor.Services
 {
-    public class MauiRepository : DailyPlanner.Repository.IRepository
+    public class MauiRepository : DailyPlannerMauiBlazor.Repository.IRepository
     {
         private const string LoggedUserKey = "LOGGED_USER";
         
@@ -31,12 +31,12 @@ namespace DailyPlannerMauiBlazor.Services
                 _isLogged = loggedUser != null;
                 if (_isLogged.Value && loggedUser != null)
                 {
-                    DailyPlanner.Settings.Settings.Default.LoggedUserId = loggedUser.UserId;
-                    DailyPlanner.Settings.Settings.Default.LoggedUserFullName = loggedUser.Username;
-                    DailyPlanner.Settings.Settings.Default.LoggedUserRole = loggedUser.Role;
-                    DailyPlanner.Settings.Settings.Default.PlantCode = loggedUser.PlantCode;
-                    DailyPlanner.Settings.Settings.Default.PlantName = loggedUser.PlantDescription;
-                    DailyPlanner.Settings.Settings.Default.AuthorizationToken = loggedUser.Token;
+                    DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserId = loggedUser.UserId;
+                    DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserFullName = loggedUser.Username;
+                    DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserRole = loggedUser.Role;
+                    DailyPlannerMauiBlazor.Settings.Settings.Default.PlantCode = loggedUser.PlantCode;
+                    DailyPlannerMauiBlazor.Settings.Settings.Default.PlantName = loggedUser.PlantDescription;
+                    DailyPlannerMauiBlazor.Settings.Settings.Default.AuthorizationToken = loggedUser.Token;
                 }
             }
             return _isLogged.Value;
@@ -54,12 +54,12 @@ namespace DailyPlannerMauiBlazor.Services
             if (response.Success)
             {
                 await _storageService.SetAsync(LoggedUserKey, response.Item);
-                DailyPlanner.Settings.Settings.Default.LoggedUserId = response.Item.UserId;
-                DailyPlanner.Settings.Settings.Default.LoggedUserFullName = response.Item.Username;
-                DailyPlanner.Settings.Settings.Default.LoggedUserRole = response.Item.Role;
-                DailyPlanner.Settings.Settings.Default.PlantCode = response.Item.PlantCode;
-                DailyPlanner.Settings.Settings.Default.PlantName = response.Item.PlantDescription;
-                DailyPlanner.Settings.Settings.Default.AuthorizationToken = response.Item.Token;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserId = response.Item.UserId;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserFullName = response.Item.Username;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserRole = response.Item.Role;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.PlantCode = response.Item.PlantCode;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.PlantName = response.Item.PlantDescription;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.AuthorizationToken = response.Item.Token;
                 _isLogged = true;
             }
             return response;
@@ -71,12 +71,12 @@ namespace DailyPlannerMauiBlazor.Services
             if (response.Success)
             {
                 await _storageService.ClearAllAsync();
-                DailyPlanner.Settings.Settings.Default.LoggedUserId = "";
-                DailyPlanner.Settings.Settings.Default.LoggedUserFullName = "";
-                DailyPlanner.Settings.Settings.Default.LoggedUserRole = RolesEnum.AUTISTA;
-                DailyPlanner.Settings.Settings.Default.PlantCode = "";
-                DailyPlanner.Settings.Settings.Default.PlantName = "";
-                DailyPlanner.Settings.Settings.Default.AuthorizationToken = null;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserId = "";
+                DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserFullName = "";
+                DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserRole = RolesEnum.AUTISTA;
+                DailyPlannerMauiBlazor.Settings.Settings.Default.PlantCode = "";
+                DailyPlannerMauiBlazor.Settings.Settings.Default.PlantName = "";
+                DailyPlannerMauiBlazor.Settings.Settings.Default.AuthorizationToken = null;
                 _isLogged = false;
             }
             return response;
@@ -85,12 +85,12 @@ namespace DailyPlannerMauiBlazor.Services
         public async Task ForceUserLogout()
         {
             await _storageService.ClearAllAsync();
-            DailyPlanner.Settings.Settings.Default.LoggedUserId = "";
-            DailyPlanner.Settings.Settings.Default.LoggedUserFullName = "";
-            DailyPlanner.Settings.Settings.Default.LoggedUserRole = RolesEnum.AUTISTA;
-            DailyPlanner.Settings.Settings.Default.PlantCode = "";
-            DailyPlanner.Settings.Settings.Default.PlantName = "";
-            DailyPlanner.Settings.Settings.Default.AuthorizationToken = null;
+            DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserId = "";
+            DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserFullName = "";
+            DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserRole = RolesEnum.AUTISTA;
+            DailyPlannerMauiBlazor.Settings.Settings.Default.PlantCode = "";
+            DailyPlannerMauiBlazor.Settings.Settings.Default.PlantName = "";
+            DailyPlannerMauiBlazor.Settings.Settings.Default.AuthorizationToken = null;
             _isLogged = false;
         }
 

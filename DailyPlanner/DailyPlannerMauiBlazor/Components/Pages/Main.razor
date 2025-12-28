@@ -1,6 +1,6 @@
 @page "/main"
-@using DailyPlanner.Models.Enum
-@using DailyPlanner.Repository
+@using DailyPlannerMauiBlazor.Models.Enum
+@using DailyPlannerMauiBlazor.Repository
 @using Microsoft.AspNetCore.Components
 @inject IRepository Repository
 @inject NavigationManager NavigationManager
@@ -68,15 +68,15 @@
         }
 
         // Get user info
-        UserFullName = DailyPlanner.Settings.Settings.Default.LoggedUserFullName;
-        UserRole = DailyPlanner.Settings.Settings.Default.LoggedUserRole;
+        UserFullName = DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserFullName;
+        UserRole = DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserRole;
     }
 
     private async Task LogoutAsync()
     {
         try
         {
-            var userId = DailyPlanner.Settings.Settings.Default.LoggedUserId;
+            var userId = DailyPlannerMauiBlazor.Settings.Settings.Default.LoggedUserId;
             await Repository.LogoutAsync(userId);
         }
         catch (Exception)

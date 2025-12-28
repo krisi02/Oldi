@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Globalization;
-using DailyPlanner.Remote;
+using DailyPlannerMauiBlazor.Remote;
 using DailyPlannerMauiBlazor.Services;
 
 namespace DailyPlannerMauiBlazor;
@@ -34,13 +34,13 @@ public static class MauiProgram
 		
 		// Register HttpClient-based Remote API
 		var remoteAPI = new DailyPlannerAPI(
-			DailyPlanner.Utility.GeneralUtility.address,
-			DailyPlanner.Utility.GeneralUtility.apiPrefix
+			DailyPlannerMauiBlazor.Utility.GeneralUtility.address,
+			DailyPlannerMauiBlazor.Utility.GeneralUtility.apiPrefix
 		);
 		builder.Services.AddSingleton<IRemoteAPI>(remoteAPI);
 		
 		// Register Repository
-		builder.Services.AddSingleton<DailyPlanner.Repository.IRepository, MauiRepository>();
+		builder.Services.AddSingleton<DailyPlannerMauiBlazor.Repository.IRepository, MauiRepository>();
 
 		return builder.Build();
 	}

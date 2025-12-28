@@ -65,13 +65,4 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
-    <ItemGroup>
-        <!-- Link essential files from the existing DailyPlanner project -->
-        <Compile Include="..\DailyPlanner\Models\**\*.cs" Exclude="..\DailyPlanner\Models\Events\**\*.cs" Link="Shared\Models\%(RecursiveDir)%(Filename)%(Extension)" />
-        <Compile Include="..\DailyPlanner\Remote\**\*.cs" Link="Shared\Remote\%(RecursiveDir)%(Filename)%(Extension)" />
-        <Compile Include="..\DailyPlanner\Repository\IRepository.cs" Link="Shared\Repository\IRepository.cs" />
-        <Compile Include="..\DailyPlanner\Settings\Settings.cs" Link="Shared\Settings\Settings.cs" />
-        <Compile Include="..\DailyPlanner\Utility\GeneralUtility.cs" Link="Shared\Utility\GeneralUtility.cs" />
-    </ItemGroup>
-
 </Project>
