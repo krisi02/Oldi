@@ -133,15 +133,15 @@
         
         if (userRole == RolesEnum.AUTISTA)
         {
-            NavigationManager.NavigateTo("/main?role=driver");
+            NavigationManager.NavigateTo("/driver-notifications");
         }
         else if (userRole == RolesEnum.NEL)
         {
-            NavigationManager.NavigateTo("/main?role=nel");
+            NavigationManager.NavigateTo("/admin-planning");
         }
         else
         {
-            NavigationManager.NavigateTo("/main");
+            NavigationManager.NavigateTo("/planning");
         }
     }
 }
